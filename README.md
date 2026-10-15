@@ -226,7 +226,4 @@ Consult the respective projects for licensing and usage terms.
 
 ![Processing stages](results/charts/processing_stages.png)
 
-The original private test video is not distributed. Use your own video to run
-the pipeline; the committed CSVs reproduce the published charts, not the
-original video inputs. Timing rows use 1-based frame numbers; agreement rows
-use 0-based frame numbers.
+
