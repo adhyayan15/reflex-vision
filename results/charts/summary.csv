@@ -1,0 +1,4 @@
+run,source_file,frames,median_prediction_ms,p95_prediction_ms,median_preprocess_ms,median_inference_ms,median_postprocess_ms
+PyTorch,video_640_fp32_20261015_011603.csv,604,9.896,10.78185,1.4675,6.3605,1.097
+TensorRT run 1,video_tensorrt_640_fp32_20261015_013305.csv,604,5.5675,7.417949999999999,1.6965,1.63,1.271
+TensorRT run 2,video_tensorrt_640_fp32_20261015_013453.csv,604,5.554,7.4787,1.6425,1.629,1.293
