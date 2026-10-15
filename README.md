@@ -204,8 +204,6 @@ Windows recorded BugcheckCode 278 (0x116, VIDEO_TDR_FAILURE):
 display-driver timeout recovery failed. The underlying cause was not
 established. The GPU responded after reboot.
 
-No completed TensorRT FP16 benchmark is reported. Further FP16 builds
-are paused pending investigation.
 
 ## Limitations and next steps
 - Evaluate both backends on a labeled dataset.
