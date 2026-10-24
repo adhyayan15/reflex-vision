@@ -82,6 +82,15 @@ The plotting script uses specific saved CSV filenames from my runs; change its `
 
 You can browse the [raw timing CSVs](results/), [comparison output](results/agreement_20261015_014351/frame_summary.csv), and [charts](results/charts/) without a GPU.
 
+### Finding and comparing your results
+
+- Each benchmark run writes a new `results/video_<model>_<size>_fp<precision>_<timestamp>.csv`. The console prints its full path when measurements are collected.
+- Let the video run past the 30 warm-up frames. A video with 30 or fewer readable frames, or quitting during warm-up, leaves a CSV with only its header and prints `No measurements collected after warm-up.`
+- Detection comparisons go into `results/agreement_<timestamp>/frame_summary.csv`. That folder also holds side-by-side images for the first 20 flagged frames. A frame is flagged if either backend has an unmatched detection, a matched box has IoU below 0.90, or a matched confidence score differs by more than 0.02.
+- To chart new benchmark runs, replace the filenames in `plot_results.py`'s `FILES` mapping with the timing CSVs you just generated. Use the same video and let each run finish: the script rejects runs with different recorded frame sequences. Charts and `summary.csv` are written to `results/charts/`, replacing the previous chart outputs.
+
+The timing CSV uses 1-based frame numbers and skips warm-up; the detection-comparison CSV starts at frame 0 and includes every readable frame. Account for that offset when looking up the same video frame in both files.
+
 ## Where I'd take this next
 
 I want to test more scenes, repeat runs under controlled GPU temperatures/power modes, and check detections against a labeled dataset. Right now these are **single-device benchmark observations**, not universal TensorRT performance claims.
