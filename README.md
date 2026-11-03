@@ -82,6 +82,18 @@ The plotting script uses specific saved CSV filenames from my runs; change its `
 
 You can browse the [raw timing CSVs](results/), [comparison output](results/agreement_20261015_014351/frame_summary.csv), and [charts](results/charts/) without a GPU.
 
+### Regenerate the saved charts without a GPU
+
+After cloning the repository, you can run `plot_results.py` independently of the benchmark and detection-comparison scripts. From the repository root, create a separate Windows Python environment and install only its two direct third-party dependencies (versions from `requirements-lock.txt`):
+
+```bat
+py -3.12 -m venv .venv-charts
+.venv-charts\Scripts\python -m pip install matplotlib==3.11.2 numpy==2.5.2
+.venv-charts\Scripts\python plot_results.py
+```
+
+The default `FILES` mapping reads three timing CSVs already included under `results/`; this path needs no video, model weights, TensorRT engine, or CUDA installation. The script uses Matplotlib's noninteractive `Agg` backend and saves `prediction_latency.png`, `processing_stages.png`, and `summary.csv` under `results/charts/` rather than opening a window. It overwrites those outputs, so preserve any charts you want to keep before running it. This reproduces charts from saved measurements; it does not rerun inference.
+
 ### Finding and comparing your results
 
 - Each benchmark run writes a new `results/video_<model>_<size>_fp<precision>_<timestamp>.csv`. The console prints its full path when measurements are collected.
