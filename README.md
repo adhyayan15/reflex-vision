@@ -103,6 +103,14 @@ The default `FILES` mapping reads three timing CSVs already included under `resu
 
 The timing CSV uses 1-based frame numbers and skips warm-up; the detection-comparison CSV starts at frame 0 and includes every readable frame. Account for that offset when looking up the same video frame in both files.
 
+### Interpreting detection agreement
+
+In `compare_detections.py`, `match_boxes` considers only pairs with the same class and IoU **at least 0.50**. It sorts candidates by IoU, highest first, and greedily accepts a pair only if neither box has already been used. Each detection can therefore appear in at most one match; this is not a global optimal assignment.
+
+The **0.50 matching cutoff** and **0.90 review threshold** serve different purposes: a pair can count as matched and still flag its frame for inspection. For example, a matched pair with IoU 0.80 contributes to `matched` but also makes `flagged` true.
+
+In `frame_summary.csv`, `minimum_iou` and `maximum_confidence_difference` summarize matched pairs in that frame. Both cells are blank when there are no matches; blank does not mean zero difference or perfect agreement. Check the unmatched counts and `flagged` column alongside them. Confidence differences use the 0–1 scale, so 0.02 means **two percentage points**.
+
 ## Where I'd take this next
 
 I want to test more scenes, repeat runs under controlled GPU temperatures/power modes, and check detections against a labeled dataset. Right now these are **single-device benchmark observations**, not universal TensorRT performance claims.
