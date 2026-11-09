@@ -63,6 +63,14 @@ python -m pip install torch==2.7.1 torchvision==0.22.1 --index-url https://downl
 python -m pip install -r requirements-lock.txt
 ```
 
+Before running inference, confirm that this environment can see CUDA:
+
+```bat
+python -c "import torch; print('CUDA available:', torch.cuda.is_available())"
+```
+
+Both inference scripts stop if this prints `False`; neither provides a CPU fallback. `reflex_vision.py` also opens an OpenCV video window, so run it in a desktop session with display support. Press **Q in that window** to stop early. For a GPU-free workflow, use the saved-chart instructions below.
+
 The benchmark video and model files are **not included in this repository**. Put your own `test_video.mp4` in the root and obtain the pretrained `yolo26n.pt` model through Ultralytics. To compare with TensorRT, export a compatible 640 × 640, batch-1 engine on your machine.
 
 In [reflex_vision.py](reflex_vision.py), set `MODEL` to `"yolo26n.pt"` for PyTorch or to your TensorRT engine filename. Then run:
