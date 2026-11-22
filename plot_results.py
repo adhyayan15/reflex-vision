@@ -50,7 +50,7 @@ for label, filename in FILES.items():
     ])
     frame_ids[label] = [int(row["frame"]) for row in rows]
 
-    if not np.isfinite(data[label]).all():
+    if not np.isfinite(data[label]).all() or (data[label] < 0).any():
         raise ValueError(f"Invalid measurements in {filename}")
 
 labels = list(data)
