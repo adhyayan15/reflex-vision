@@ -158,6 +158,9 @@ try:
 finally:
     video.release()
 
+if frames == 0:
+    raise RuntimeError("No readable frames in test_video.mp4; comparison was not performed.")
+
 print(f"\nFrames checked: {frames}")
 print(f"Flagged frames: {flagged_frames}")
 print(f"Total PyTorch detections: {total_pt}")
